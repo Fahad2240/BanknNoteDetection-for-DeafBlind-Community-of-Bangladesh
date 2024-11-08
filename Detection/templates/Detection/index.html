@@ -1,0 +1,10 @@
+{% extends 'Detection\base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div style="margin-left: 35%;margin-top: 28%;">
+    <a href="{% url 'Detection:detection' %}" ><img src="{% static 'Detection/okBD1.png' %}" alt=""></a>
+</div>
+<!-- <h1 class='pt-24 mb-5 text-3xl text-center text-white'>Fahad</h1> -->
+
+{% endblock %}
