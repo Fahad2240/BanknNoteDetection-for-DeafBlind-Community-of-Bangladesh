@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PotatoDiseaseDetection{% endblock %}</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+    <script src="{% static 'Js/tailwind.js' %}"></script>
+    <script src="{% static 'Js/jquery.js' %}"></script>
+</head>
+<style>
+    @font-face {
+      font-family: 'CustomFont';
+      src: url('{% static "Fonts/Quitars.ttf" %}') format('truetype');
+    }
+</style>
+<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+<!-- <nav>
+    <a href="{% url 'Detection:index' %}"><img src="{% static 'Detection/fahad-02 (1).png' %}" alt="" style="margin:auto; width: 55%; margin-top: 5%;"></a>
+</nav> -->
+
+<body style="background-image: url('{% static 'Detection/set.png' %}')">
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

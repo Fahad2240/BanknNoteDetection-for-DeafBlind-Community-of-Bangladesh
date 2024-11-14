@@ -1,0 +1,10 @@
+{% extends 'Detection\base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+<h1>Prediction Results</h1>
+<ul>
+  {% for key, value in prediction_result.items %}
+    <li><strong>{{ key }}:</strong> {{ value }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

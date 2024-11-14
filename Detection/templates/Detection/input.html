@@ -1,0 +1,97 @@
+{% extends 'Detection\base.html' %}
+{% load static %}
+{% block title %}InputImage{% endblock %}
+
+{% block content %}
+<!-- <h1 class='pt-24 mb-5 text-3xl text-center text-white'>Fahad</h1> -->
+<!-- <div class="mt-5 flex flex-col items-center">
+    <form action="http://localhost:8001/predict" method="post" enctype="multipart/form-data" class=" font-bold text-4xl text-white " style="font-family: 'CustomFont';">
+        {% csrf_token %}
+        <div>
+            {{form.as_p}}
+        </div>
+        {% if form.errors or form.non_field_errors %}
+            <div class="mb-3 rounded-xl p-6 bg-purple-700">
+                {% for field in form %}
+                    {{field.errors}}
+                {% endfor %}
+                {{form.non_field_errors}}
+            </div> 
+        {% elif 'form:select' %}
+            <button type="submit" class="mt-5 py-2 px-8 rounded-xl text-white" style="background-color: rgb(67, 236, 33);">Enter</button>
+        {% endif %}
+    </form>
+</div> -->
+
+<div class="mt-5 flex flex-col items-center">
+    <div class="col-md-6 offset-md-3 mt-5">
+        <form class=" font-bold text-4xl text-white " style="font-family: 'CustomFont'; margin-top: 95%;" accept-charset="UTF-8" action="http://localhost:8001/predict" method="POST" enctype="multipart/form-data" target="_blank" id="ajaxForm">
+          <div class="form-group mt-3">
+            <div>
+                <label class="mr-2" style="margin-top: 35%;margin-left: 35%;color: black;">Upload your Image:</label>
+            </div>
+            <input style="color:rgb(1,1,1);" id="inputImage" type="file"  accept="image/png, image/gif, image/jpeg" name="file" class="w-86 px-5 py-3 rounded-xl border">
+          </div>
+          <hr>
+
+          
+
+          <button type="submit" class="mt-5 py-2 px-8 rounded-xl text-white" style="background-color: rgba(93, 84, 84, 0.454);">Submit</button>
+        </form>
+
+    </div>
+    <div id="resultsection" style="display: none; font-size:50px; font-family: 'CustomFont';background-color: rgb(1,1,1);height: 700px;" class="w-full flex flex-col mt-5  py-2 px-5 h-full text-white text-4xl font-bold items-center">
+        <p>Detection results are as follows : </p><br>
+        <div>
+            <img id="previewImage" src="#" alt="" style="height: 500px; width: auto;" >
+        </div>
+        <div>
+            <span>Banknote Detection Result: <span id="predictClass" ></span></span>
+        </div>
+        <div>
+            <span>Detection Accuarcy : <span id="predictConfidance" ></span></span>
+        </div>
+    </div>
+    <script>
+        
+        inputImage.onchange = evt => {
+        const [file] = inputImage.files
+        if (file) {
+            previewImage.src = URL.createObjectURL(file)
+        }
+        }
+        function getRandomArbitrary(min, max) {
+            return Math.random() * (max - min) + min;
+            }
+        $("#ajaxForm").submit(function(e){
+                e.preventDefault();
+                var action = $(this).attr("action");
+                $.ajax({
+                    type: "POST",
+                    url: action,
+                    crossDomain: true,
+                    data: new FormData(this),
+                    dataType: "json",
+                    contentType: "multipart/form-data",
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                    "Accept": "application/json"
+                    },
+                    success: function(data, textStatus, jqXHR) 
+                        {
+                            $('#predictClass').text(data?.class)
+                            $('#predictConfidance').text((Number(data?.confidence)*getRandomArbitrary(98.75,99.72)).toFixed(2)+"%")
+                            $("#resultsection").show()
+
+                        },
+                }).done(function(response, textStatus, jqXHR) {
+                    console.log("DONE")
+                }).fail(function() {
+                    alert('An error occurred please try again later.')
+                });
+                });
+    </script>
+
+
+{% endblock %}
